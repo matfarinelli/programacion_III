@@ -151,6 +151,49 @@ public class TreeWithNode {
 	 * }
 	 */
 
+	public boolean delete(int value) {
+		boolean hasDelete = false;
+		hasDelete = delete(this.root, value);
+		return hasDelete;
+	}
+
+	private boolean delete(TreeNode actual, int value){
+			boolean hasDelete = false;
+			if(actual.getInfo() == value){
+				// aca se debería hacer el reemplazo
+				actual.setInfo(null);
+				hasDelete = true;
+			} else if (actual.getInfo() > value){
+				hasDelete = delete(actual.getLeft(), value);
+				hasDelete = false;
+			} else {
+				hasDelete = delete(actual.getRight(), value);
+				hasDelete = false;
+			}
+			return hasDelete;
+		}
+
+		public boolean delete(int value){
+			TreeNode aux = root;
+			TreeNode padre = root;
+			boolean esHijoIzquierdo = true;
+
+			while (aux.getInfo() != value){
+				padre = aux;
+
+				if (value < aux.getInfo()){
+					esHijoIzquierdo = true;
+					aux = aux.getLeft();
+				} else {
+					esHijoIzquierdo = false;
+					aux = aux.getRight();
+				}
+
+				if( aux == null) {
+					return false;
+				}
+			}
+		}
 
 
 }
