@@ -130,6 +130,7 @@ public class TreeWithNode {
 		TreeNode parent = root;
 		boolean isLeftChild = true;
 
+		// ciclo para mover los cursores
 		while (current.getInfo() != value) {
 			parent = current;
 
@@ -156,6 +157,7 @@ public class TreeWithNode {
 				root = null;
 			}
 
+			// hay que asignar null a parent
 			if (isLeftChild) {
 				parent.setLeft(null);
 			} else {
@@ -168,19 +170,14 @@ public class TreeWithNode {
 			// borrado de raiz con un hijo izquierdo
 			if (current == root) {
 				root = current.getLeft();
-				// no entiendo esta parte
-			} else if (current.getInfo() < root.getInfo()) {
-				parent.setLeft(current.getLeft());
 			} else {
-				parent.setRight(current.getLeft());
+				parent.setLeft(current.getLeft());
 			}
+
 			// caso hijo derecho
 		} else if ((current.getLeft() == null) && (current.getRight() != null)) {
 			if (current == root) {
 				root = current.getRight();
-				// no entiendo esta parte
-			} else if (current.getInfo() < root.getInfo()) {
-				parent.setLeft(current.getRight());
 			} else {
 				parent.setRight(current.getRight());
 			}
@@ -190,18 +187,9 @@ public class TreeWithNode {
 		else {
 			TreeNode tmp = getReplaceNode(current);
 
-			if (current == root) {
-				root = tmp;
-			} else if (isLeftChild) {
-				parent.setLeft(tmp);
-			} else {
-				parent.setRight(tmp);
-			}
-
-			tmp.setLeft(current.getLeft());
 
 		}
-
+		// si llega hasta acá, hubo delete
 		return true;
 
 	}
