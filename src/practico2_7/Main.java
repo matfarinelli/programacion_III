@@ -41,7 +41,7 @@ public class Main {
 		 System.out.println("Esta el elemento 6? " + tree.hasElem1(6));
 		 System.out.println("Esta el elemento 98? " + tree.hasElem1(98));
 
-		 tree.delete(103);
+		 tree.delete(63);
 		 tree.printPreOrder();
 
 

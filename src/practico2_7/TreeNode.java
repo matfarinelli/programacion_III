@@ -65,4 +65,8 @@ public class TreeNode {
 	public boolean isLeaf(){
 		return ((this.getLeft() == null) && (this.getRight()== null));
 	}
+
+    public TreeNode getSucesor(TreeNode right2) {
+        return null;
+    }
 }

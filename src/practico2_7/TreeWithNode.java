@@ -168,18 +168,18 @@ public class TreeWithNode {
 			// borrado de raiz con un hijo izquierdo
 			if (current == root) {
 				root = current.getLeft();
-				//no entiendo esta parte				
-			} else if (current.getInfo() < root.getInfo()){
+				// no entiendo esta parte
+			} else if (current.getInfo() < root.getInfo()) {
 				parent.setLeft(current.getLeft());
 			} else {
 				parent.setRight(current.getLeft());
 			}
-		// caso hijo derecho
-		} else if (current.getLeft()==null) && (current.getRight()!= null) {
-			if (current == root){
+			// caso hijo derecho
+		} else if ((current.getLeft() == null) && (current.getRight() != null)) {
+			if (current == root) {
 				root = current.getRight();
-				//no entiendo esta parte
-			} else if (current.getInfo() < root.getInfo()){
+				// no entiendo esta parte
+			} else if (current.getInfo() < root.getInfo()) {
 				parent.setLeft(current.getRight());
 			} else {
 				parent.setRight(current.getRight());
@@ -187,9 +187,22 @@ public class TreeWithNode {
 		}
 
 		// caso nodo con 2 hijos
-		else{
-			TreeNode temp = getReplaceNode(current);
+		else {
+			TreeNode tmp = getReplaceNode(current);
+
+			if (current == root) {
+				root = tmp;
+			} else if (isLeftChild) {
+				parent.setLeft(tmp);
+			} else {
+				parent.setRight(tmp);
+			}
+
+			tmp.setLeft(current.getLeft());
+
 		}
+
+		return true;
 
 	}
 
