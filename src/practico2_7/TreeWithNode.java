@@ -119,27 +119,74 @@ public class TreeWithNode {
 		return true;
 	}
 
+	// public
+	public Boolean delete(int value) {
+		boolean hasDelete = false;
+		hasDelete = delete(this.root, value);
+		return hasDelete;
+	}
+
+	private TreeNode delete(TreeNode actual, int value) {
+		if (actual != null) {
+
+			if (actual.getInfo() == value) {
+				// nodo hoja
+				if ((actual.getLeft() == null) && (actual.getRight() == null)) {
+					return actual = null;
+				}
+				// nodo con hijos
+				else {
+					// nodo con 1 solo hijo
+					// con nodo hijo izquierdo
+					if ((actual.getLeft() != null) && (actual.getRight() == null)) {
+						return actual = actual.getLeft();
+					}
+					// con nodo hijo derecho
+					else if ((actual.getLeft() == null) && (actual.getRight() != null)) {
+						return actual = actual.getRight();
+					}
+					// con 2 hijos
+					else if ((actual.getLeft() != null) && (actual.getRight() != null)) {
+						TreeNode right = actual.getRight();
+						TreeNode temp = actual.getSucesor(right);
+
+						temp.setLeft(actual.getLeft());
+						return temp;
+					}
+
+				}
+			}
+		}
+
+		if (actual.getInfo() > value) {
+			delete(actual.getLeft(), value);
+		} else {
+			delete(actual.getRight(), value);
+		}
+
+		return actual;
+	}
+
+	private TreeNode getSucesor(TreeNode actual) {
+		if (actual.getLeft() != null) {
+			return getSucesor(actual.getLeft());
+		}
+		return actual;
+	}
+
 	/*
-	 * // public
-	 * public Boolean delete(int value) {
-	 * boolean hasDelete = false;
-	 * hasDelete = delete(this.root, value);
-	 * return hasDelete;
-	 * }
-	 * 
 	 * // private
 	 * private Boolean delete(TreeNode actual, int value) {
 	 * boolean hasDelete = false;
 	 * if (actual == null) {
 	 * return hasDelete;
 	 * } else if (actual.getInfo() == value) {
-	 * TreeNode nodeReplace = this.getReplace(actual);
+	 * TreeNode nodeReplace = actual;
+	 * 
 	 * // cuando lo encuentro, seteo y borro el reemplazo
 	 * // deber�a ser un m�todo recursivo
 	 * 
-	 * actual.setInfo(nodeReplace.getInfo());
-	 * System.out.println("El nodo reemplazo es :" + nodeReplace.getInfo());
-	 * this.replace(actual);
+	 * actual.setInfo(null);
 	 * 
 	 * hasDelete = true;
 	 * } else if (actual.getInfo() > value) {
@@ -149,89 +196,15 @@ public class TreeWithNode {
 	 * }
 	 * return hasDelete;
 	 * }
+	 * 
+	 * private TreeNode getReplace(TreeNode actual) {
+	 * TreeNode reeplace = actual;
+	 * 
+	 * // nodo hoja
+	 * if ((actual.getLeft() == null) && (actual.getRight() == null))
+	 * 
+	 * return replace;
+	 * }
 	 */
-
-	public boolean delete(int value) {
-		TreeNode aux = root;
-		TreeNode padre = root;
-		boolean esHijoIzquierdo = true;
-
-		while (aux.getInfo() != value) {
-			padre = aux;
-
-			if (value < aux.getInfo()) {
-				esHijoIzquierdo = true;
-				aux = aux.getLeft();
-			} else {
-				esHijoIzquierdo = false;
-				aux = aux.getRight();
-			}
-
-			// nodo no encontrado
-			if (aux == null) {
-				return false;
-			}
-
-		} // fin del while
-
-		// si es nodo hoja
-		if ((aux.getLeft() == null) && (aux.getRight() == null)) {
-			if (aux == root) {
-				root = null;
-			} else if (esHijoIzquierdo) {
-				padre.setLeft(null);
-			} else {
-				padre.setRight(null);
-			}
-		} else if (aux.getRight() == null) {
-			if (aux == root) {
-				root = aux.getLeft();
-			} else if (esHijoIzquierdo) {
-				padre.setLeft(aux.getLeft());
-			} else {
-				padre.setRight(aux.getLeft());
-			}
-		} else if (aux.getLeft() == null) {
-			if (aux == root) {
-				root = aux.getRight();
-			} else if (esHijoIzquierdo) {
-				padre.setRight(aux.getRight());
-			} else {
-				padre.setLeft(aux.getRight());
-			}
-		} else {
-			TreeNode reemplazo = getNodeReplace(aux);
-			if (aux == root) {
-				root = reemplazo;
-			} else if (esHijoIzquierdo) {
-				padre.setLeft(reemplazo);
-			} else {
-				padre.setRight(reemplazo);
-			}
-
-			reemplazo.setLeft(aux.getLeft());
-		}
-		return true;
-	}
-
-	private TreeNode getNodeReplace(TreeNode aReemplazar) {
-		TreeNode reemplazarPadre = aReemplazar;
-		TreeNode reemplazo = aReemplazar;
-		TreeNode aux = aReemplazar.getRight();
-
-		while(aux != null){
-			reemplazarPadre = reemplazo;
-			reemplazo = aux;
-			aux = aux.getLeft();
-		}
-
-		if (reemplazo != aReemplazar.getRight()){
-			reemplazarPadre.setLeft(reemplazo.getLeft());
-			reemplazo.setRight(aReemplazar.getRight());
-		}
-		
-		System.out.println("El nodo reemplazo es " + reemplazo.getInfo());
-		return reemplazo;
-	}
 
 }
