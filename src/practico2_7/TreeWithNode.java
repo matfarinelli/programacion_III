@@ -126,85 +126,90 @@ public class TreeWithNode {
 		return hasDelete;
 	}
 
-	private TreeNode delete(TreeNode actual, int value) {
-		if (actual != null) {
+	private boolean delete(TreeNode current, int value) {
+		TreeNode parent = root;
+		boolean isLeftChild = true;
 
-			if (actual.getInfo() == value) {
-				// nodo hoja
-				if ((actual.getLeft() == null) && (actual.getRight() == null)) {
-					return actual = null;
-				}
-				// nodo con hijos
-				else {
-					// nodo con 1 solo hijo
-					// con nodo hijo izquierdo
-					if ((actual.getLeft() != null) && (actual.getRight() == null)) {
-						return actual = actual.getLeft();
-					}
-					// con nodo hijo derecho
-					else if ((actual.getLeft() == null) && (actual.getRight() != null)) {
-						return actual = actual.getRight();
-					}
-					// con 2 hijos
-					else if ((actual.getLeft() != null) && (actual.getRight() != null)) {
-						TreeNode right = actual.getRight();
-						TreeNode temp = actual.getSucesor(right);
+		while (current.getInfo() != value) {
+			parent = current;
 
-						temp.setLeft(actual.getLeft());
-						return temp;
-					}
+			if (current.getInfo() > value) {
+				current = current.getLeft();
+				isLeftChild = true;
+			} else {
+				current = current.getRight();
+				isLeftChild = false;
+			}
 
-				}
+			// si no lo encuentra
+			if (current == null) {
+				return false;
+			}
+
+		} // fin del while
+
+		// CASOS DE ELIMINACION
+		// caso nodo hoja
+		if ((current.getLeft() == null) && (current.getRight() == null)) {
+			// si solo hay nodo raiz
+			if (current == root) {
+				root = null;
+			}
+
+			if (isLeftChild) {
+				parent.setLeft(null);
+			} else {
+				parent.setRight(null);
+			}
+		}
+		// caso nodo con un hijo
+		// nodo hijo izquierdo
+		else if ((current.getLeft() != null) && (current.getRight() == null)) {
+			// borrado de raiz con un hijo izquierdo
+			if (current == root) {
+				root = current.getLeft();
+				//no entiendo esta parte				
+			} else if (current.getInfo() < root.getInfo()){
+				parent.setLeft(current.getLeft());
+			} else {
+				parent.setRight(current.getLeft());
+			}
+		// caso hijo derecho
+		} else if (current.getLeft()==null) && (current.getRight()!= null) {
+			if (current == root){
+				root = current.getRight();
+				//no entiendo esta parte
+			} else if (current.getInfo() < root.getInfo()){
+				parent.setLeft(current.getRight());
+			} else {
+				parent.setRight(current.getRight());
 			}
 		}
 
-		if (actual.getInfo() > value) {
-			delete(actual.getLeft(), value);
-		} else {
-			delete(actual.getRight(), value);
+		// caso nodo con 2 hijos
+		else{
+			TreeNode temp = getReplaceNode(current);
 		}
 
-		return actual;
 	}
 
-	private TreeNode getSucesor(TreeNode actual) {
-		if (actual.getLeft() != null) {
-			return getSucesor(actual.getLeft());
+	private TreeNode getReplaceNode(TreeNode deleteNode) {
+		TreeNode replaceNode = deleteNode;
+		TreeNode replaceParentNode = deleteNode;
+		TreeNode current = deleteNode.getRight();
+
+		while (current != null) {
+			replaceParentNode = replaceNode;
+			replaceNode = current;
+			current = current.getLeft();
 		}
-		return actual;
-	}
 
-	/*
-	 * // private
-	 * private Boolean delete(TreeNode actual, int value) {
-	 * boolean hasDelete = false;
-	 * if (actual == null) {
-	 * return hasDelete;
-	 * } else if (actual.getInfo() == value) {
-	 * TreeNode nodeReplace = actual;
-	 * 
-	 * // cuando lo encuentro, seteo y borro el reemplazo
-	 * // deber�a ser un m�todo recursivo
-	 * 
-	 * actual.setInfo(null);
-	 * 
-	 * hasDelete = true;
-	 * } else if (actual.getInfo() > value) {
-	 * hasDelete = this.delete(actual.getLeft(), value);
-	 * } else if (actual.getInfo() < value) {
-	 * hasDelete = this.delete(actual.getRight(), value);
-	 * }
-	 * return hasDelete;
-	 * }
-	 * 
-	 * private TreeNode getReplace(TreeNode actual) {
-	 * TreeNode reeplace = actual;
-	 * 
-	 * // nodo hoja
-	 * if ((actual.getLeft() == null) && (actual.getRight() == null))
-	 * 
-	 * return replace;
-	 * }
-	 */
+		if (replaceNode != deleteNode.getRight()) {
+			replaceParentNode.setLeft(replaceNode.getRight());
+			replaceNode.setRight(deleteNode.getRight());
+		}
+
+		return replaceNode;
+	}
 
 }
