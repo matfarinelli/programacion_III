@@ -33,7 +33,7 @@ public class Main {
 		 //System.out.println("Root:" + tree.getRoot());
 		 //System.out.println("Arbol vacío: " + treeVacio.isEmpty());
 
-		 System.out.println("Esta el elemento 63 ? " + tree.hasElem(63)  );
+		 System.out.println("\nEsta el elemento 63 ? " + tree.hasElem(63)  );
 		 System.out.println("Esta el elemento 6 ? " + tree.hasElem(6)  );
 		 System.out.println("Esta el elemento 5 ? " + tree.hasElem(5)  );
 		 System.out.println("Esta el elemento 80 ? " + tree.hasElem(80)  );
@@ -41,12 +41,12 @@ public class Main {
 		 System.out.println("Esta el elemento 6? " + tree.hasElem1(6));
 		 System.out.println("Esta el elemento 98? " + tree.hasElem1(98));
 
-		tree.delete(103);
-		tree.printPreOrder();
+		 tree.delete(103);
+		 //tree.printPreOrder();
 
 
-		tree.delete(35);
-		tree.printPreOrder();                      
+		//tree.delete(35);
+		//tree.printPreOrder();                      
 
 	}
 
