@@ -171,7 +171,11 @@ public class TreeWithNode {
 			if (current == root) {
 				root = current.getLeft();
 			} else {
-				parent.setLeft(current.getLeft());
+				if (isLeftChild) {
+					parent.setLeft(current.getLeft());
+				} else {
+					parent.setRight(current.getLeft());
+				}
 			}
 
 			// caso hijo derecho
@@ -179,14 +183,23 @@ public class TreeWithNode {
 			if (current == root) {
 				root = current.getRight();
 			} else {
-				parent.setRight(current.getRight());
+				if (isLeftChild) {
+					parent.setLeft(current.getRight());
+				} else {
+					parent.setRight(current.getRight());
+				}
 			}
 		}
 
 		// caso nodo con 2 hijos
 		else {
-			TreeNode tmp = getReplaceNode(current);
 
+			// encontrar reemplazo
+			// cambiar punteros
+			// borrar reemplazo en hoja
+
+			// TreeNode replaceNode = this.findSuccessor(current.getLeft());
+			// System.out.println(replaceNode.getInfo());
 
 		}
 		// si llega hasta acá, hubo delete
@@ -194,23 +207,25 @@ public class TreeWithNode {
 
 	}
 
-	private TreeNode getReplaceNode(TreeNode deleteNode) {
-		TreeNode replaceNode = deleteNode;
-		TreeNode replaceParentNode = deleteNode;
-		TreeNode current = deleteNode.getRight();
-
-		while (current != null) {
-			replaceParentNode = replaceNode;
-			replaceNode = current;
-			current = current.getLeft();
-		}
-
-		if (replaceNode != deleteNode.getRight()) {
-			replaceParentNode.setLeft(replaceNode.getRight());
-			replaceNode.setRight(deleteNode.getRight());
-		}
-
-		return replaceNode;
-	}
+	/*
+	 * private TreeNode getReplaceNode(TreeNode deleteNode) {
+	 * TreeNode replaceNode = deleteNode;
+	 * TreeNode replaceParentNode = deleteNode;
+	 * TreeNode current = deleteNode.getRight();
+	 * 
+	 * while (current != null) {
+	 * replaceParentNode = replaceNode;
+	 * replaceNode = current;
+	 * current = current.getLeft();
+	 * }
+	 * 
+	 * if (replaceNode != deleteNode.getRight()) {
+	 * replaceParentNode.setLeft(replaceNode.getRight());
+	 * replaceNode.setRight(deleteNode.getRight());
+	 * }
+	 * 
+	 * return replaceNode;
+	 * }
+	 */
 
 }

@@ -32,21 +32,31 @@ public class Main {
 		// System.out.println("Root:" + tree.getRoot());
 		// System.out.println("Arbol vacío: " + treeVacio.isEmpty());
 
-		System.out.println("\nEsta el elemento 63 ? " + tree.hasElem(63));
-		System.out.println("Esta el elemento 6 ? " + tree.hasElem(6));
-		System.out.println("Esta el elemento 5 ? " + tree.hasElem(5));
-		System.out.println("Esta el elemento 80 ? " + tree.hasElem(80));
-		System.out.println("Esta el elemento 0 ? " + tree.hasElem(0));
-		System.out.println("Esta el elemento 6? " + tree.hasElem1(6));
-		System.out.println("Esta el elemento 98? " + tree.hasElem1(98));
+		// System.out.println("\nEsta el elemento 63 ? " + tree.hasElem(63));
+		// System.out.println("Esta el elemento 6 ? " + tree.hasElem(6));
+		// System.out.println("Esta el elemento 5 ? " + tree.hasElem(5));
+		// System.out.println("Esta el elemento 80 ? " + tree.hasElem(80));
+		// System.out.println("Esta el elemento 0 ? " + tree.hasElem(0));
+		// System.out.println("Esta el elemento 6? " + tree.hasElem1(6));
+		// System.out.println("Esta el elemento 98? " + tree.hasElem1(98));
 
 		// caso nodo hoja
 		//tree.delete(45);
 		//tree.printPreOrder();
 
+		System.out.println("---------------------------");
 		// caso nodo 1 hijo izquierdo
-		tree.delete(63);
+		tree.delete(66);
 		tree.printPreOrder();
+
+		System.out.println("---------------------------");
+		// caso nodo 1 hijo izquierdo
+		tree.delete(103);
+		tree.printPreOrder();
+		
+		// caso nodo 2 hijos
+		// tree.delete(65);
+		// tree.printPreOrder();
 		
 
 	}
