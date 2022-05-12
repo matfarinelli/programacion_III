@@ -193,18 +193,31 @@ public class TreeWithNode {
 
 		// caso nodo con 2 hijos
 		else {
+			if ((current.getLeft() != null) && (current.getRight() != null)) {
 
-			// encontrar reemplazo
-			// cambiar punteros
-			// borrar reemplazo en hoja
+				// hijo derecho de nodo a borrar
+				TreeNode right = current.getRight();
+				// busco menor , de los mayores (mas izq. de rama derecha)
+				TreeNode successor = getSuccessor(right);
+				//System.out.println("\nEl nodo reemplazo es: " + successor.getInfo());
+				// borro el nodo reemplazo
+				this.delete(successor.getInfo());
+				// reemplazo valor del nodo
+				current.setInfo(successor.getInfo());
 
-			// TreeNode replaceNode = this.findSuccessor(current.getLeft());
-			// System.out.println(replaceNode.getInfo());
+			}
 
 		}
 		// si llega hasta acá, hubo delete
 		return true;
 
+	}
+
+	private TreeNode getSuccessor(TreeNode current) {
+		if (current.getLeft() != null) {
+			return getSuccessor(current.getLeft());
+		}
+		return current;
 	}
 
 	/*
