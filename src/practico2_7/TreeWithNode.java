@@ -199,10 +199,10 @@ public class TreeWithNode {
 				TreeNode right = current.getRight();
 				// busco menor , de los mayores (mas izq. de rama derecha)
 				TreeNode successor = getSuccessor(right);
-				//System.out.println("\nEl nodo reemplazo es: " + successor.getInfo());
-				// borro el nodo reemplazo
+				// System.out.println("\nEl nodo reemplazo es: " + successor.getInfo());
+				// borro el nodo que será sucesor.
 				this.delete(successor.getInfo());
-				// reemplazo valor del nodo
+				// reemplazo valor del nodo borrado , por la info del sucesor
 				current.setInfo(successor.getInfo());
 
 			}
@@ -220,25 +220,41 @@ public class TreeWithNode {
 		return current;
 	}
 
-	/*
-	 * private TreeNode getReplaceNode(TreeNode deleteNode) {
-	 * TreeNode replaceNode = deleteNode;
-	 * TreeNode replaceParentNode = deleteNode;
-	 * TreeNode current = deleteNode.getRight();
-	 * 
-	 * while (current != null) {
-	 * replaceParentNode = replaceNode;
-	 * replaceNode = current;
-	 * current = current.getLeft();
-	 * }
-	 * 
-	 * if (replaceNode != deleteNode.getRight()) {
-	 * replaceParentNode.setLeft(replaceNode.getRight());
-	 * replaceNode.setRight(deleteNode.getRight());
-	 * }
-	 * 
-	 * return replaceNode;
-	 * }
-	 */
+	public int getHeight() {
+		int countLeft = 0;
+		int countRight = 0;
 
+		if (this.root != null) {
+			countLeft = this.getHeight(this.root.getLeft());
+			countRight = this.getHeight(this.root.getRight());
+		}
+
+		System.out.println("Rama Izq: " + countLeft);
+		System.out.println("Rama Der: " + countRight);
+
+		if (countLeft >= countRight) {
+			return countLeft;
+		} else {
+			return countRight;
+		}
+	}
+
+	// altura del arbol
+	private int getHeight(TreeNode cursor) {
+		int count = 1;
+
+		if (cursor.getLeft())
+
+
+		// while ((cursor.getLeft() != null) || (cursor.getRight() != null)) {
+		// 	if (cursor.getLeft() == null) {
+		// 		cursor = cursor.getRight();
+		// 	} else {
+		// 		cursor = cursor.getLeft();
+		// 	}
+			System.out.println("Cursor en: " + cursor.getInfo());
+			count++;
+		}
+		return count;
+	}
 }

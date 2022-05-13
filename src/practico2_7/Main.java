@@ -45,18 +45,22 @@ public class Main {
 		//tree.printPreOrder();
 
 		// caso nodo 1 hijo izquierdo
-		System.out.println("\n---------------------------");
 		// tree.delete(66);
 		// tree.printPreOrder();
-
+		
 		// System.out.println("---------------------------");
 		// caso nodo 1 hijo izquierdo
 		//tree.delete(103);
 		// tree.printPreOrder();
-		
+				
 		// caso nodo 2 hijos
-		tree.delete(65);
-		tree.printPreOrder();
+		//System.out.println("Borrado de 65");
+		//tree.delete(65);
+		//tree.printPreOrder();
+		
+		System.out.println("\n---------------------------");
+
+		tree.getHeight();
 		
 	}
 
