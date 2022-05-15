@@ -326,4 +326,52 @@ public class TreeWithNode {
 		return fronteras;
 	}
 
+	public List<Integer> getLongestBranch() {
+		List<Integer> longest = new ArrayList<Integer>();
+		longest.addAll(getLongestBranch(this.root));
+		return longest;
+	}
+
+	private List<Integer> getLongestBranch(TreeNode current) {
+		List<Integer> longest_left = new ArrayList<Integer>();
+		List<Integer> longest_right = new ArrayList<Integer>();
+		List<Integer> longest = new ArrayList<Integer>();
+
+		if (current == null) {
+			return null;
+		} else {
+			// si el nodo actual es != de null , lo agrego a las listas
+			if (current != null) {
+				longest_left.add(current.getInfo());
+				longest_right.add(current.getInfo());
+			}
+			// si hay nodos siguientes, itero con recursión
+			if (current.getLeft() != null) {
+				longest_left.addAll(getLongestBranch(current.getLeft()));
+			}
+
+			if (current.getRight() != null) {
+				longest_right.addAll(getLongestBranch(current.getRight()));
+			}
+
+			if (longest_left.size() > longest_right.size()) {
+				if (longest_left.size() > longest.size()) {
+					longest = longest_left;
+				}
+
+			} else {
+				if (longest_right.size() > longest.size()) {
+					longest = longest_right;
+				}
+
+				// System.out.println(longest_right);
+				// System.out.println(longest_left);
+				// System.out.println(longest);
+
+			}
+		}
+
+		return longest;
+
+	}
 }

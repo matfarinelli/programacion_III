@@ -60,7 +60,7 @@ public class Main {
 
 		System.out.println("\n---------------------------");
 
-		//System.out.println("La altura es " + tree.getHeight());
+		// System.out.println("La altura es " + tree.getHeight());
 
 		// tree.printPostOrder();
 
@@ -68,7 +68,9 @@ public class Main {
 
 		// tree.printInOrder();
 
-		System.out.println(tree.getFrontera());
+		// System.out.println(tree.getFrontera());
+
+		System.out.println(tree.getLongestBranch());
 	}
 
 }
