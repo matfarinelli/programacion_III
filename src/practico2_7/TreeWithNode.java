@@ -1,5 +1,8 @@
 package practico2_7;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TreeWithNode {
 
 	private TreeNode root;
@@ -60,18 +63,54 @@ public class TreeWithNode {
 		printPreOrder(root);
 	}
 
+	public void printPostOrder() {
+		printPostOrder(root);
+	}
+
+	public void printInOrder() {
+		printInOrder(root);
+	}
+
 	// privado
+
 	// recibe nodo de inicio para imprimir --->root
 	// si nodo actual est� vac�o imprimir " - "
 	// si no, dar info y RECURSIVIDAD
+
+	// (b) Preorder (Root, Left, Right) : 1 2 4 5 3
 	private void printPreOrder(TreeNode actual) {
 		if (actual == null) {
 			System.out.print(" - ");
 			return;
 		} else {
+			// muestra y recursiona
 			System.out.print(actual.getInfo() + " ");
 			printPreOrder(actual.getLeft());
 			printPreOrder(actual.getRight());
+		}
+	}
+
+	// (c) Postorder (Left, Right, Root) : 4 5 2 3 1
+	private void printPostOrder(TreeNode actual) {
+		if (actual == null) {
+			System.out.print(" - ");
+			return;
+		} else {
+			printPostOrder(actual.getLeft());
+			printPostOrder(actual.getRight());
+			System.out.print(actual.getInfo() + " ");
+		}
+	}
+
+	// (a) Inorder (Left, Root, Right) : 4 2 5 1 3
+	private void printInOrder(TreeNode actual) {
+		if (actual == null) {
+			System.out.print(" - ");
+			return;
+		} else {
+			printInOrder(actual.getLeft());
+			System.out.print(actual.getInfo() + " ");
+			printInOrder(actual.getRight());
 		}
 	}
 
@@ -221,40 +260,70 @@ public class TreeWithNode {
 	}
 
 	public int getHeight() {
-		int countLeft = 0;
-		int countRight = 0;
+		int height = 0;
+		height = this.getHeight(this.root);
+		return height;
+	}
 
-		if (this.root != null) {
-			countLeft = this.getHeight(this.root.getLeft());
-			countRight = this.getHeight(this.root.getRight());
-		}
+	public int getHeight(TreeNode current) {
+		int heightLeft = 0;
+		int heightRight = 0;
 
-		System.out.println("Rama Izq: " + countLeft);
-		System.out.println("Rama Der: " + countRight);
-
-		if (countLeft >= countRight) {
-			return countLeft;
+		if (current == null) {
+			return 0;
 		} else {
-			return countRight;
+
+			// Math.max(getHeight(current.getLeft()),
+			// getHeight(node.getRight()));
+
+			heightLeft = getHeight(current.getLeft());
+			// System.out.println("Nodo " + current.getInfo() + " Altura left " +
+			// heightLeft);
+			heightRight = getHeight(current.getRight());
+			// System.out.println("Nodo " + current.getInfo() + " Altura right " +
+			// heightRight);
+
+			if (heightLeft > heightRight) {
+				return heightLeft + 1;
+			} else {
+				return heightRight + 1;
+			}
 		}
+
 	}
 
-	// altura del arbol
-	private int getHeight(TreeNode cursor) {
-		int count = 1;
-
-		if (cursor.getLeft())
-
-
-		// while ((cursor.getLeft() != null) || (cursor.getRight() != null)) {
-		// 	if (cursor.getLeft() == null) {
-		// 		cursor = cursor.getRight();
-		// 	} else {
-		// 		cursor = cursor.getLeft();
-		// 	}
-			System.out.println("Cursor en: " + cursor.getInfo());
-			count++;
-		}
-		return count;
+	// metodo publico para no pasar nodo
+	// utiliza addAll, ya que el metodo privado returna listas.
+	public List<Integer> getFrontera() {
+		List<Integer> fronteras = new ArrayList<Integer>();
+		fronteras.addAll(this.getFrontera(this.root));
+		return fronteras;
 	}
+
+	private List<Integer> getFrontera(TreeNode current) {
+		List<Integer> fronteras = new ArrayList<Integer>();
+
+		// if (current == null) {
+		// return null;
+		// }
+
+		if ((current.getLeft() == null) && (current.getRight() == null)) {
+			fronteras.add(current.getInfo());
+		} else {
+
+			// importatisimos los if para no recursionar nodos sin hijos
+			// utiliza addAll, por el hecho que el metodo recursivo devuelve listas
+			if (current.getLeft() != null) {
+				fronteras.addAll(getFrontera(current.getLeft()));
+			}
+			if (current.getRight() != null) {
+				fronteras.addAll(getFrontera(current.getRight()));
+			}
+
+		}
+		// para ver recursión
+		System.out.println(fronteras);
+		return fronteras;
+	}
+
 }

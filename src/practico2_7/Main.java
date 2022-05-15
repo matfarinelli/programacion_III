@@ -29,7 +29,7 @@ public class Main {
 
 		tree.printPreOrder();
 
-		// System.out.println("Root:" + tree.getRoot());
+		// System.out.println("\nRoot:" + tree.getRoot());
 		// System.out.println("Arbol vacío: " + treeVacio.isEmpty());
 
 		// System.out.println("\nEsta el elemento 63 ? " + tree.hasElem(63));
@@ -41,27 +41,34 @@ public class Main {
 		// System.out.println("Esta el elemento 98? " + tree.hasElem1(98));
 
 		// caso nodo hoja
-		//tree.delete(45);
-		//tree.printPreOrder();
+		// tree.delete(45);
+		// tree.printPreOrder();
 
 		// caso nodo 1 hijo izquierdo
-		// tree.delete(66);
+		// cleartree.delete(66);
 		// tree.printPreOrder();
-		
+
 		// System.out.println("---------------------------");
 		// caso nodo 1 hijo izquierdo
-		//tree.delete(103);
+		// tree.delete(103);
 		// tree.printPreOrder();
-				
+
 		// caso nodo 2 hijos
-		//System.out.println("Borrado de 65");
-		//tree.delete(65);
-		//tree.printPreOrder();
-		
+		// System.out.println("Borrado de 65");
+		// tree.delete(65);
+		// tree.printPreOrder();
+
 		System.out.println("\n---------------------------");
 
-		tree.getHeight();
-		
+		//System.out.println("La altura es " + tree.getHeight());
+
+		// tree.printPostOrder();
+
+		// System.out.println("\n---------------------------");
+
+		// tree.printInOrder();
+
+		System.out.println(tree.getFrontera());
 	}
 
 }
