@@ -70,7 +70,12 @@ public class Main {
 
 		// System.out.println(tree.getFrontera());
 
-		System.out.println(tree.getLongestBranch());
+		//System.out.println(tree.getLongestBranch());
+
+		//System.out.println(tree.getMaxElem());
+
+		//System.out.println(tree.getElemAtLevel(4));
+		System.out.println(tree.getElemAtLevel(2));
 	}
 
 }

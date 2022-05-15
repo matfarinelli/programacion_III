@@ -374,4 +374,59 @@ public class TreeWithNode {
 		return longest;
 
 	}
+
+	public Integer getMaxElem() {
+		Integer maxElem = null;
+
+		if (!this.isEmpty()) {
+			maxElem = getMaxElem(this.root);
+		}
+
+		return maxElem;
+
+	}
+
+	private Integer getMaxElem(TreeNode current) {
+		int maxElem = current.getInfo();
+
+		if (current != null) {
+			if (current.getRight() != null) {
+				maxElem = getMaxElem(current.getRight());
+			} else {
+				maxElem = current.getInfo();
+			}
+		}
+		return maxElem;
+	}
+
+	public List<Integer> getElemAtLevel(int level) {
+		List<Integer> elemAtLevel = new ArrayList<Integer>();
+		int i = 0;
+		// el nivel solicitado tiene que ser menor o igual que la altura del arbol
+		if (level <= this.getHeight()) {
+			if (!this.isEmpty()) {
+				i = 1;
+				getElemAtLevel(this.root, level, elemAtLevel, i);
+			}
+
+		}
+		return elemAtLevel;
+	}
+
+	private void getElemAtLevel(TreeNode current, int level, List<Integer> elemAtLevel, int i) {
+
+		if (current == null) {
+			return;
+		}
+
+		if (i == level) {
+			//System.out.println(current.getInfo());
+			elemAtLevel.add(current.getInfo());
+		} else {
+			i++;
+			getElemAtLevel(current.getLeft(), level, elemAtLevel, i);
+			getElemAtLevel(current.getRight(), level, elemAtLevel, i);
+		}
+
+	}
 }
