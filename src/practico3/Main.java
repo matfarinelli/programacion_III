@@ -14,8 +14,8 @@ public class Main {
         grafo_d.agregarVertice(3);
         grafo_d.agregarVertice(4);
         grafo_d.agregarVertice(5);
-        // grafo_d.agregarVertice(6);
-        // grafo_d.agregarVertice(7);
+        grafo_d.agregarVertice(6);
+        grafo_d.agregarVertice(7);
 
         grafo_d.agregarArco(0, 1, 0);
         grafo_d.agregarArco(0, 3, 0);
@@ -36,9 +36,24 @@ public class Main {
 
         // Iterator<Arco<Integer>> itArcos = grafo_d.obtenerArcos();
         // while (itArcos.hasNext()) {
-        //     System.out.println(itArcos.next());
+        // System.out.println(itArcos.next().getDatos());
         // }
 
-        System.out.println(grafo_d.cantidadArcos());
+        // System.out.println(grafo_d.cantidadArcos());
+
+        // Iterator<Integer> itAdyacentes = grafo_d.obtenerAdyacentes(2);
+        // while (itAdyacentes.hasNext()) {
+        // System.out.println(itAdyacentes.next().intValue());
+        // }
+
+        //DFS dfs = new DFS(grafo_d);
+
+        //dfs.dfs();
+
+        //System.out.println(dfs.hayCiclo());
+
+        BFS bfs = new BFS(grafo_d);
+        
+        bfs.bfs();
     }
 }

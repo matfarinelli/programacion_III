@@ -114,9 +114,15 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	}
 
 	@Override
-	public Iterator<Integer> obtenerAdyacentes(int verticeId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Iterator<Integer> obtenerAdyacentes(int origen) {
+		LinkedList<Integer> listaAdyacentes = new LinkedList<Integer>();
+		Iterator<Arco<T>> itArcos = this.obtenerArcos(origen);
+
+		while (itArcos.hasNext()) {
+			listaAdyacentes.add(itArcos.next().getVerticeDestino());
+		}
+		Iterator<Integer> itAdyacentes = listaAdyacentes.iterator();
+		return itAdyacentes;
 	}
 
 	// pedir a cada uno de los vertices del grafo, sus arcos
