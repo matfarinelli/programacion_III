@@ -26,9 +26,6 @@ public class BFS {
             visitados.put(verticeId, false);
         }
 
-        // System.out.println(visitados.toString());
-        // System.out.println(filaVertices.toString());
-
         // reinicio iterador si no hago esto, no ingresa en el while sigte
         it = grafo.obtenerVertices();
 
@@ -47,28 +44,20 @@ public class BFS {
         visitados.put(origen, true);
         filaVertices.add(origen);
 
-        System.out.println("Vertice visitado " + origen);
-
         while (!filaVertices.isEmpty()) {
-            int vert_removido = filaVertices.remove(0);
-            Iterator<Integer> itAdyacentes = this.grafo.obtenerAdyacentes(vert_removido);
-
-            System.out.println("Vertice fifo :" + vert_removido);
+            int vert_top = filaVertices.remove(0);
+            Iterator<Integer> itAdyacentes = this.grafo.obtenerAdyacentes(vert_top);
 
             while (itAdyacentes.hasNext()) {
                 int vert_adyac = itAdyacentes.next();
 
-                System.out.println("Vertice adyacente " + vert_adyac + " de " + vert_removido);
                 if (visitados.get(vert_adyac) == false) {
-                    System.out.println("Vertice visitado : " + vert_adyac);
                     visitados.put(vert_adyac, true);
                     filaVertices.add(vert_adyac);
                 }
             }
 
         }
-
-        System.out.println("Visitados " + visitados.toString());
-
     }
+
 }

@@ -52,8 +52,12 @@ public class Main {
 
         // System.out.println(dfs.hayCiclo());
 
-        BFS bfs = new BFS(grafo_d);
+        // BFS bfs = new BFS(grafo_d);
 
-        bfs.bfs();
+        // bfs.bfs();
+
+        CaminoSimple cs = new CaminoSimple(grafo_d);
+
+        cs.getCaminoSimple(1, 4);
     }
 }
