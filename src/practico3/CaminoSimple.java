@@ -3,6 +3,8 @@ package practico3;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 // Ejercicio 4.
 // Escribir un algoritmo que, dado un grafo dirigido y dos vértices i, j de este
@@ -12,67 +14,80 @@ import java.util.Iterator;
 public class CaminoSimple {
 
     private Grafo<?> grafo; // o mapa
-    private HashMap<Integer, Boolean> visitados;
-    private ArrayList<Integer> camino;
-    private ArrayList<Integer> filaVertices;
+    private HashMap<Integer, String> colores;
 
     public CaminoSimple(Grafo<?> grafo) {
         this.grafo = grafo;
-        this.visitados = new HashMap<Integer, Boolean>();
-        this.camino = new ArrayList<Integer>();
-        this.filaVertices = new ArrayList<Integer>();
+        this.colores = new HashMap<Integer, String>();
     }
 
-    public ArrayList<Integer> getCaminoSimple(int origen, int destino) {
-        camino.clear();
+    public List<Integer> obtenerCaminos(int v_origen, int v_destino) {
+
+        // si no existen los vertices, no hay camino -- lista vacía
+        if (!grafo.contieneVertice(v_origen) || !grafo.contieneVertice(v_destino)) {
+            return new LinkedList<Integer>();
+        }
 
         Iterator<Integer> it = this.grafo.obtenerVertices();
-
         while (it.hasNext()) {
             int verticeId = it.next();
-            visitados.put(verticeId, false);
+            colores.put(verticeId, "Blanco");
         }
 
-        it = this.grafo.obtenerVertices();
+        List<Integer> camino = obtenerMayorCaminoPosible(v_origen, v_destino);
 
-        if (visitados.get(origen) == false) {
-            camino.addAll(bfs_visit(origen, destino));
-        }
+        // sin estas lineas, devuelve un camino largo aunque no llegue.
+        if ((camino.get(0) == v_origen) && (camino.get(camino.size() - 1) == v_destino)) {
+            return camino;
+        } else
+            return new LinkedList<Integer>();
 
-        return camino;
     }
 
-    public ArrayList<Integer> bfs_visit(int v_origen, int destino) {
-        ArrayList<Integer> tramo_actual = new ArrayList<Integer>();
-        boolean destino_encontrado = false;
+    public List<Integer> obtenerMayorCaminoPosible(int v_origen, int v_destino) {
+        List<Integer> recorridoMayor = new LinkedList<>();
+        boolean llegaADestino = false;
 
-        camino.add(v_origen);
-        visitados.put(v_origen, true);
-        filaVertices.add(v_origen);
+        // agrego el vertice destino y mas abajo, el que hizo lo hizo llegar
+        if (v_origen == v_destino) {
+            LinkedList<Integer> camino = new LinkedList<Integer>();
+            camino.add(v_origen);
+            return camino;
+        }
 
-        while (!filaVertices.isEmpty() && !destino_encontrado) {
-            int vertice_top = filaVertices.remove(0);
-            Iterator<Integer> itAdyacentes = grafo.obtenerAdyacentes(vertice_top);
+        colores.put(v_origen, "Amarillo");
 
-            while (itAdyacentes.hasNext()) {
-                int vertice_ady = itAdyacentes.next();
-                tramo_actual.add(vertice_ady);
+        Iterator<Integer> it_ady = this.grafo.obtenerAdyacentes(v_origen);
 
-                if (visitados.get(vertice_ady) == false) {
-                    visitados.put(vertice_ady, true);
-                    filaVertices.add(vertice_ady);
+        while (it_ady.hasNext()) {
+            int vert_ady = it_ady.next();
+            List<Integer> recorridoIteracion;
 
-                    if (vertice_ady == destino) {
-                        // camino.addAll(tramo_actual);
-                        // System.out.println(camino);
-                        System.out.println("Destino encontrado!!!");
+            if (colores.get(vert_ady).equals("Blanco")) {
+                recorridoIteracion = obtenerMayorCaminoPosible(vert_ady, v_destino);
+
+                // System.out.println("Vertice ady: " + vert_ady);
+                //System.out.println("Recorrido iteracion " + recorridoIteracion);
+
+                if (recorridoIteracion.size() != 0) {
+                    llegaADestino = true;
+                    // seleccionador de camino largo
+                    if (recorridoMayor.size() < recorridoIteracion.size()) {
+                        recorridoMayor = recorridoIteracion;
                     }
                 }
-
             }
         }
 
-        return camino;
+        if (llegaADestino) {
+            colores.put(v_origen, "Blanco");
+        } else
+            colores.put(v_origen, "Negro");
+
+        recorridoMayor.add(0, v_origen);
+
+        //System.out.println("Recorrido mayor " + recorridoMayor);
+        return recorridoMayor;
     }
 
 }

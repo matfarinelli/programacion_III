@@ -22,9 +22,12 @@ public class Main {
         grafo_d.agregarArco(1, 2, 35);
         grafo_d.agregarArco(2, 5, 0);
         grafo_d.agregarArco(2, 0, 0);
+        grafo_d.agregarArco(2, 7, 8);
         grafo_d.agregarArco(3, 4, 0);
         grafo_d.agregarArco(4, 1, 0);
         grafo_d.agregarArco(4, 5, 0);
+        grafo_d.agregarArco(5, 6, 0);
+        grafo_d.agregarArco(7, 6, 0);
 
         // System.out.println(grafo_d.existeArco(0, 3));
         // grafo_d.borrarArco(0, 3);
@@ -58,6 +61,6 @@ public class Main {
 
         CaminoSimple cs = new CaminoSimple(grafo_d);
 
-        cs.getCaminoSimple(1, 4);
+        System.out.println(cs.obtenerCaminos(1, 6));
     }
 }
