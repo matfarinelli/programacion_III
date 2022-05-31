@@ -27,7 +27,8 @@ public class Main {
         grafo_d.agregarArco(4, 1, 0);
         grafo_d.agregarArco(4, 5, 0);
         grafo_d.agregarArco(5, 6, 0);
-        grafo_d.agregarArco(7, 6, 0);
+        grafo_d.agregarArco(6, 2, 0);
+        grafo_d.agregarArco(6, 7, 0);
 
         // System.out.println(grafo_d.existeArco(0, 3));
         // grafo_d.borrarArco(0, 3);
@@ -49,18 +50,24 @@ public class Main {
         // System.out.println(itAdyacentes.next().intValue());
         // }
 
-        // DFS dfs = new DFS(grafo_d);
+        // existeCiclo existeCiclo = new existeCiclo(grafo_d);
 
-        // dfs.dfs();
-
-        // System.out.println(dfs.hayCiclo());
+        // System.out.println(existeCiclo.hayCiclo());
 
         // BFS bfs = new BFS(grafo_d);
 
         // bfs.bfs();
 
-        CaminoSimple cs = new CaminoSimple(grafo_d);
+        //Camino cs = new Camino(grafo_d);
+        // grafo_d.borrarArco(1, 2);
+        // System.out.println(cs.existeCamino(1, 5));
+        // System.out.println(cs.existeCamino(2, 9));
+        // System.out.println(cs.obtenerCaminos(1, 6));
 
-        System.out.println(cs.obtenerCaminos(1, 6));
+        // System.out.println(cs.mostrarCaminos(1, 5));
+
+        EncontrarTodosLosCaminos todosCaminos = new EncontrarTodosLosCaminos(grafo_d);
+        System.out.println(todosCaminos.obtenerTodosLosCaminos(2, 7)); 
+
     }
 }

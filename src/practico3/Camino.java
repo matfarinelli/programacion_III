@@ -11,14 +11,51 @@ import java.util.List;
 // grafo, devuelva el camino simple (sin ciclos) de mayor longitud del vértice i al vértice j.
 // Puede suponerse que el grafo de entrada es acíclico.
 
-public class CaminoSimple {
+public class Camino {
 
     private Grafo<?> grafo; // o mapa
     private HashMap<Integer, String> colores;
 
-    public CaminoSimple(Grafo<?> grafo) {
+    public Camino(Grafo<?> grafo) {
         this.grafo = grafo;
         this.colores = new HashMap<Integer, String>();
+    }
+
+    public boolean existeCamino(int origen, int destino) {
+
+        Iterator<Integer> it = this.grafo.obtenerVertices();
+        while (it.hasNext()) {
+            int vertice_id = it.next();
+            colores.put(vertice_id, "blanco");
+        }
+
+        Boolean existeCamino = existeCamino_visit(origen, destino);
+
+        return existeCamino;
+    }
+
+    private boolean existeCamino_visit(int v_origen, int v_destino) {
+
+        if (v_origen == v_destino) {
+            return true;
+        }
+
+        colores.put(v_origen, "amarillo");
+
+        Iterator<Integer> it_ady = this.grafo.obtenerAdyacentes(v_origen);
+        Boolean existeCamino = false;
+
+        while (it_ady.hasNext() && !existeCamino) {
+            int vert_ady = it_ady.next();
+            if (colores.get(vert_ady).equals("blanco")) {
+                existeCamino = existeCamino_visit(vert_ady, v_destino);
+            }
+
+        }
+
+        colores.put(v_origen, "negro");
+
+        return existeCamino;
     }
 
     public List<Integer> obtenerCaminos(int v_origen, int v_destino) {
@@ -67,7 +104,7 @@ public class CaminoSimple {
                 recorridoIteracion = obtenerMayorCaminoPosible(vert_ady, v_destino);
 
                 // System.out.println("Vertice ady: " + vert_ady);
-                //System.out.println("Recorrido iteracion " + recorridoIteracion);
+                // System.out.println("Recorrido iteracion " + recorridoIteracion);
 
                 if (recorridoIteracion.size() != 0) {
                     llegaADestino = true;
@@ -86,8 +123,57 @@ public class CaminoSimple {
 
         recorridoMayor.add(0, v_origen);
 
-        //System.out.println("Recorrido mayor " + recorridoMayor);
+        // System.out.println("Recorrido mayor " + recorridoMayor);
         return recorridoMayor;
+    }
+
+    public ArrayList<Integer> mostrarCaminos(int origen, int destino) {
+        ArrayList<Integer> caminos = new ArrayList<>();
+
+        Iterator<Integer> it = this.grafo.obtenerVertices();
+
+        while (it.hasNext()) {
+            int vertice = it.next();
+            colores.put(vertice, "blanco");
+        }
+
+        caminos = mostrarCaminos_visit(origen, destino);
+
+        return caminos;
+    }
+
+    private ArrayList<Integer> mostrarCaminos_visit(int v_origen, int v_destino) {
+
+        // solo retornará cuando llegó a destino - situación corte
+        if (v_origen == v_destino) {
+            ArrayList<Integer> out_destino = new ArrayList<>();
+            out_destino.add(v_origen);
+            return out_destino;
+        }
+
+        ArrayList<Integer> camino = null;
+        colores.put(v_origen, "amarillo");
+
+        Iterator<Integer> it_ady = this.grafo.obtenerAdyacentes(v_origen);
+
+        while (it_ady.hasNext() && camino == null) {
+            int vert_ady = it_ady.next();
+            ArrayList<Integer> camino_parcial = new ArrayList<>();
+           
+            if (colores.get(vert_ady).equals("blanco")) {
+                camino_parcial = mostrarCaminos_visit(vert_ady, v_destino);
+           
+                if (camino_parcial != null) {
+                    camino = new ArrayList<>();
+                    camino.add(v_origen);
+                    camino.addAll(camino_parcial);
+                }
+            }
+        }
+
+        colores.put(v_origen, "negro");
+ 
+        return camino;
     }
 
 }
