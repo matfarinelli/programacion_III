@@ -55,9 +55,13 @@ public class BFS {
                     visitados.put(vert_adyac, true);
                     filaVertices.add(vert_adyac);
                 }
-            }
 
+                System.out.println("Adyacente visitado: " + vert_adyac);
+            }
+            
+            System.out.println("Visitados en el ciclo" + visitados);
         }
+
     }
 
 }

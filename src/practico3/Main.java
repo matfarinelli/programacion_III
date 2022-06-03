@@ -20,12 +20,11 @@ public class Main {
         grafo_d.agregarArco(0, 1, 0);
         grafo_d.agregarArco(0, 3, 0);
         grafo_d.agregarArco(1, 2, 35);
-        grafo_d.agregarArco(2, 5, 0);
         grafo_d.agregarArco(2, 0, 0);
-        grafo_d.agregarArco(2, 7, 8);
+        grafo_d.agregarArco(2, 4, 8);
         grafo_d.agregarArco(3, 4, 0);
-        grafo_d.agregarArco(4, 1, 0);
         grafo_d.agregarArco(4, 5, 0);
+        grafo_d.agregarArco(5, 2, 0);
         grafo_d.agregarArco(5, 6, 0);
         grafo_d.agregarArco(6, 2, 0);
         grafo_d.agregarArco(6, 7, 0);
@@ -58,7 +57,7 @@ public class Main {
 
         // bfs.bfs();
 
-        //Camino cs = new Camino(grafo_d);
+        // Camino cs = new Camino(grafo_d);
         // grafo_d.borrarArco(1, 2);
         // System.out.println(cs.existeCamino(1, 5));
         // System.out.println(cs.existeCamino(2, 9));
@@ -66,8 +65,14 @@ public class Main {
 
         // System.out.println(cs.mostrarCaminos(1, 5));
 
-        EncontrarTodosLosCaminos todosCaminos = new EncontrarTodosLosCaminos(grafo_d);
-        System.out.println(todosCaminos.obtenerTodosLosCaminos(2, 7)); 
+        // EncontrarTodosLosCaminos todosCaminos = new
+        // EncontrarTodosLosCaminos(grafo_d);
+        // System.out.println(todosCaminos.obtenerTodosLosCaminos(0, 7));
+
+        // System.out.println(todosCaminos.obtener_conexion(0, 7, 5));
+
+        CaminoMasCorto cmc = new CaminoMasCorto(grafo_d);
+        System.out.println(cmc.obtenerCaminoMasCorto(0, 5));
 
     }
 }
