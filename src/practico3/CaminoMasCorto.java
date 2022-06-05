@@ -3,6 +3,8 @@ package practico3;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Set;
+import java.util.Map.Entry;
 
 // Ejercicio 7.
 // Supongamos que una ciudad se encuentra modelada mediante un grafo, donde cada nodo
@@ -15,19 +17,19 @@ public class CaminoMasCorto {
     private Grafo<?> grafo;
     private HashMap<Integer, Boolean> visitados;
     private ArrayList<Integer> filaVertices;
-    private HashMap<Integer, Integer> hijos_padres;
+    private HashMap<Integer, Integer> padres_hijos;
 
     public CaminoMasCorto(Grafo<?> grafo) {
         this.grafo = grafo;
         this.visitados = new HashMap<Integer, Boolean>();
         this.filaVertices = new ArrayList<Integer>();
-        this.hijos_padres = new HashMap<Integer, Integer>();
+        this.padres_hijos = new HashMap<Integer, Integer>();
     }
 
-    public Boolean existeCamino(int origen, int destino) {
+    public ArrayList<Integer> obtenerCaminoMasCorto(int origen, int destino) {
 
         this.filaVertices.clear();
-        this.hijos_padres.clear();
+        this.padres_hijos.clear();
 
         Iterator<Integer> it = grafo.obtenerVertices();
         // pido vertices del grafo y todos como "no visitado"
@@ -47,33 +49,32 @@ public class CaminoMasCorto {
             while (itAdyacentes.hasNext()) {
                 int vert_adyac = itAdyacentes.next();
 
-                System.out.println("Adyacente visitado: " + vert_adyac);
+                // System.out.println("Adyacente visitado: " + vert_adyac);
 
                 if (!visitados.get(vert_adyac)) {
-                    hijos_padres.put(vert_adyac, vert_top);
+                    padres_hijos.put(vert_top, vert_adyac);
                     visitados.put(vert_adyac, true);
                     filaVertices.add(vert_adyac);
 
                     if (vert_adyac == destino) {
-                        // no tiene mucho sentido el array, dado que no voy a poder devolver el camino,
-                        // sino los vertices que pudieron ser visitados antes de llegar al destino
-                        return true;
+
+                        // obtener todas las keys del hashmap
+                         Set<Integer> padres = padres_hijos.keySet();
+                        
+                         System.out.println(padres);
+                        // obtener padre de destino hasta llegar a origen
+
+
 
                     }
                 }
             }
 
             // System.out.println("Visitados en el ciclo" + visitados);
-            // System.out.println("hijo/padre" + hijos_padres);
+            System.out.println("padre/hijos" + padres_hijos);
             // System.out.println("Fila de vertices " + filaVertices);
-        }
-        return false;
-    }
-
-    public ArrayList<Integer> caminoMasCorto(int origen, int destino) {
-        if (existeCamino(origen, destino)) {
-
         }
         return new ArrayList<>();
     }
+
 }
