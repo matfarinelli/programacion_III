@@ -112,6 +112,8 @@ public class Robot {
 
         bloquePrincipal.addComando(comando7);
 
+        kiko.addTarjeta(bloquePrincipal);
+
         // Calcular el gasto total de batería
         double gastoTotal = kiko.getConsumo(bloquePrincipal);
         double gastoTiempoTotal = kiko.getTiempoEjecucion(bloquePrincipal);
@@ -120,6 +122,17 @@ public class Robot {
         System.out.println("El tiempo total de ejecucion es: " + gastoTiempoTotal + " unidades.");
 
         System.out.println(kiko.getComandos(bloquePrincipal));
+
+        System.out.println(
+                "El gasto de batería del bloque iterativo es: " + kiko.getTiempoEjecucion(bloqueCompuesto2));
+
+        // solo para comparar los tiempos del iterativo con un compuesto normal:
+        ComandoBloque bloqueCompuesto3 = new ComandoBloque("BloqueCompuesto3");
+        bloqueCompuesto3.addComando(comando5);
+        bloqueCompuesto3.addComando(comando6);
+
+        System.out.println(
+                "El gasto de batería del bloque compuesto3 es: " + kiko.getTiempoEjecucion(bloqueCompuesto3));
 
         // debería haber un método que vaya gastando batería , según lo que consuma cada
         // tarjeta y eso ir actualizando la variable bateria?
